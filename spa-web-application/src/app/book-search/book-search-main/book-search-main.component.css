@@ -1,0 +1,10 @@
+.bookSearch-outer {
+    font-family: Georgia !important;
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#inputState {
+    display: inline-block;
+}

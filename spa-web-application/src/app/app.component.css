@@ -1,0 +1,16 @@
+h1 {
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+}
+
+a {
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+a:first-child {
+    padding-left: 0;
+}

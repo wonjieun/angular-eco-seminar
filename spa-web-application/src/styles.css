@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/* angular.json의 styles속성에 bootstrap.css 경로를 적지 않고 이 곳에서도 처리 가능*/
+/* "styles": [ "node_modules/bootstrap/dist/css/bootstrap.min.css" ] */
+@import '~bootstrap/dist/css/bootstrap.css';

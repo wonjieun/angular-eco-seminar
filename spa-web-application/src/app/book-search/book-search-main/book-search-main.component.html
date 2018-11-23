@@ -1,0 +1,30 @@
+<div class="bookSearch-outer">    
+    <div class="example-container">
+        <mat-form-field>
+        <!-- mat-select: 셀렉트 박스에 대한 Angular Material 컴포넌트-->
+        <!-- 양방향 바인드로 selectedValue를 바인딩 시켜놓음-->
+        <mat-select placeholder="도서종류"
+                    #bookCategorySelect
+                    [(ngModel)]="selectedValue"
+                    (ngModelChange)="changeValue(bookCategorySelect.value)">
+            <!-- mat-option: 셀렉트 박스 안에 각각의 옵션 컴포넌트-->
+            <mat-option *ngFor="let category of bookCategory"
+                        [value]="category.value">
+                        <!-- ngFor, ngIf: 구조적 지시자 (Structural Directive)-->
+                        <!-- DOM 요소를 추가하거나 삭제, 반복처리하여 화면의 구조를 변경-->
+            {{ category.viewValue }}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <app-search-box></app-search-box>
+    </div>
+    <div>
+        <app-detail-box></app-detail-box>
+    </div>
+    <div>
+        <app-list-box></app-list-box>
+    </div>
+</div>

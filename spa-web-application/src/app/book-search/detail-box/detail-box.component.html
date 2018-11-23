@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+  <mat-card-header class="detail-header-style">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{book.btitle}}</mat-card-title>
+    <mat-card-subtitle>{{book.bauthor}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image class="book-image" src="{{book.bimgurl}}">
+  <mat-card-content>
+    <p>
+      ISBN : {{book.bisbn}}<br/>출판일 : {{book.bdate}}<br/>도서 가격 : {{book.bprice}}원
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- disabled 속성에 속성바인딩(property binding)을 이용해 조건 생성-->
+    <!-- 조건: 책 가격이 20000원을 초과하면 버튼 비활성화-->
+    <button mat-button
+            mat-raised-button color="primary"
+            [disabled]="book.bprice>20000">바로 구입</button>
+  </mat-card-actions>
+</mat-card>

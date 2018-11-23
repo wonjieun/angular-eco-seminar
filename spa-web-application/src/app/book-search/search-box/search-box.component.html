@@ -1,0 +1,19 @@
+<div class="example-container">
+    <mat-toolbar class="search-toolbar-style">1. 단방향 바인딩: {{ keyword }}</mat-toolbar>
+    <mat-toolbar class="search-toolbar-style">2. 양방향 바인딩: {{ twowayKeyword }}</mat-toolbar>
+    <mat-form-field>
+        <!-- #inputKeyword: Angular의 템플릿 참조변수 (Template Reference Variable)-->
+        <!-- DOM의 HTML Element에 대한 참조변수로 HTML Element (input)의 변수를 지정한 것-->
+        <!-- 템플릿 내의 Javascript코드에서 #기호를 제외한 변수이름으로 참조 가능 (*)-->
+        <input matInput #inputKeyword placeholder="Search Keyword"
+            [(ngModel)]="twowayKeyword" (ngModelChange)="inputChange()">
+            <!-- ngModel로 바인딩한 값이 변경-->
+            <!-- ngModelChange에 바인딩된 inputChange()는 ts안에 메소드로 정의-->
+            <!-- 데이터가 변경될 때 자동적으로 이벤트가 발생하고 바인딩된 메소드를 통해 특정 로직 수행-->
+    </mat-form-field>
+    <!-- (*) inputKeyword로 참조 가능-->
+    <!-- inputKeyword가 input상자이기 때문에 value속성을 이용하여 입력된 값 알아옴-->
+    <button mat-raised-button color="warn"
+            (click)="setKeyword(inputKeyword.value)">Search</button>
+            <!-- 버튼 클릭시 입력한 키워드 값을 가져와 컴포넌트의 메소드를 호출-->
+</div>
