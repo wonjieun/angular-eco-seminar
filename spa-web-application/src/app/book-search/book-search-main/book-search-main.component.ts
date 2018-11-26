@@ -21,10 +21,11 @@ export class BookSearchMainComponent implements OnInit {
   }
 
   changeValue(category: string): void {
-      for (const element of this.bookCategory ) {
-        if (element.value === category) {
-          this.displayCategoryName = element.viewValue;
-        }
+    // 선택한 도서 종류를 가지고 displayCategoryName이라는 속성 값 변경
+    for (const element of this.bookCategory) {
+      if (element.value === category) {
+        this.displayCategoryName = element.viewValue;
       }
+    }
   }
 }

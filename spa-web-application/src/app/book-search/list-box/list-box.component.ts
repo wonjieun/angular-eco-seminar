@@ -33,13 +33,15 @@ export class ListBoxComponent implements OnInit {
   // book.json에 대한 HTTP연결로 JSON데이터를 가져옴
   constructor(private http: HttpClient) {
     // 실제 데이터를 호출해보자 (11/23 세미나)
+    // this.http.get<IBook[]>('http://14.63.223.63:8082/common/test/book/list.do')
     this.http.get<IBook[]>('assets/data/book.json')
       .subscribe(res => {
+        console.log('>>>' + JSON.stringify(res));
         this.books = res;
         // HttpClient의 get() method로 가져온 후 이를 객체화
         // dataSource: 도서정보에 대한 객체배열을 이용하여 만든 MatTableDataSource class객체
         //             = JSON 데이터를 가져와 만든 객체
-        // dataSource와 연결시키기 위해 위에 있는 코드처럼 객체를 생성해서 연결
+        // dataSource와 연결시키기 위해 아래 코드처럼 객체를 생성해서 연결
         this.dataSource = new MatTableDataSource<IBook>(this.books);
         this.dataSource.paginator = this.paginator;
       });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -7,6 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
 
+  // Input decorator
+  // 부모 컴포넌트: book-search-main
+  // 부모 컴포넌트 -> 자식 컴포넌트 데이터 전달할 때의 방식 call-by-reference
+  // call-by-reference ? call-by-value ?
+  // bookCategory라는 이름으로 부모 컴포넌트가 속성 바인딩으로 전달
+  // 해준 데이터를 받을 수 있음
+  // @Input() bookCategory: string;
+
+  // bookCategory 이름의 속성 대신 mySelected 속성 사용 가능
+  // html의 인터폴레이션 (interpolation) ({{}}) 역시 mySelected 사용
+  // @Input('bookCategory') mySelected: string;
+
+  // 부모 컴포넌트가 전달해준 데이터를 가공해서 자식 컴포넌트에서 사용하기
+  _bookCategory: string;
+
+  @Input()
+  set bookCategory(value: string) {
+    if (value != null) {
+      // 추가적인 작업이 들어올 수 있습니다.
+      this._bookCategory = 'category: ' + value;
+    } else {
+      this._bookCategory = value;
+    }
+  }
+
   keyword = 'Hello world!';
 
   constructor() { }
@@ -14,7 +39,7 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit() {
   }
 
-  inputChange() {
+  inputChange(): void {
     console.log('inputChange');
   }
 

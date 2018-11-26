@@ -1,12 +1,16 @@
 <div class="example-container">
-    <mat-toolbar class="search-toolbar-style">1. 단방향 바인딩: {{ keyword }}</mat-toolbar>
-    <mat-toolbar class="search-toolbar-style">2. 양방향 바인딩: {{ twowayKeyword }}</mat-toolbar>
+    <mat-toolbar class="search-toolbar-style">키워드 : {{ keyword }}
+        <!-- bookCategory값이 null이면 출력되지 않게끔 지시자 이용 (*ngIf)-->
+        <ng-container *ngIf="_bookCategory != null">
+            ({{ _bookCategory }})
+        </ng-container>
+    </mat-toolbar>
     <mat-form-field>
         <!-- #inputKeyword: Angular의 템플릿 참조변수 (Template Reference Variable)-->
         <!-- DOM의 HTML Element에 대한 참조변수로 HTML Element (input)의 변수를 지정한 것-->
         <!-- 템플릿 내의 Javascript코드에서 #기호를 제외한 변수이름으로 참조 가능 (*)-->
         <input matInput #inputKeyword placeholder="Search Keyword"
-            [(ngModel)]="twowayKeyword" (ngModelChange)="inputChange()">
+            [(ngModel)]="keyword" (ngModelChange)="inputChange()">
             <!-- ngModel로 바인딩한 값이 변경-->
             <!-- ngModelChange에 바인딩된 inputChange()는 ts안에 메소드로 정의-->
             <!-- 데이터가 변경될 때 자동적으로 이벤트가 발생하고 바인딩된 메소드를 통해 특정 로직 수행-->

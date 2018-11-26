@@ -19,7 +19,8 @@
     </div>
 
     <div>
-        <app-search-box></app-search-box>
+        <!-- bookCategory라는 이름을 displayCategoryName 속성을 바인딩-->
+        <app-search-box [bookCategory]="displayCategoryName"></app-search-box>
     </div>
     <div>
         <app-detail-box></app-detail-box>
