@@ -1,4 +1,6 @@
-<div class="bookSearch-outer">    
+<div class="bookSearch-outer">
+    <h5 #resultStatus class="mb-0 text-white lh-100">Search Result : {{searchTitle}}</h5>
+
     <div class="example-container">
         <mat-form-field>
         <!-- mat-select: 셀렉트 박스에 대한 Angular Material 컴포넌트-->
@@ -16,11 +18,17 @@
             </mat-option>
         </mat-select>
         </mat-form-field>
+        <button mat-raised-button color="primary"
+            (click)="clearCondition()">검색 초기화</button>
+        <button mat-raised-button color="primary"
+            (click)="changeDOM()">DOM 직접 변경</button>
     </div>
 
     <div>
         <!-- bookCategory라는 이름을 displayCategoryName 속성을 바인딩-->
-        <app-search-box [bookCategory]="displayCategoryName"></app-search-box>
+        <app-search-box [bookCategory]="displayCategoryName"
+                        (searchEvent)="changeTitleBar($event)"></app-search-box>
+                        <!-- 이벤트 바인딩을 이용한 searchEvent 이벤트 발생-->
     </div>
     <div>
         <app-detail-box></app-detail-box>

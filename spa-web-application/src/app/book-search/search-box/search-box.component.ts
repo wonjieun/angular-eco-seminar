@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -32,6 +32,11 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
+  // @Output decorator
+  // 부모 컴포넌트에게 이벤트를 전달하기 위해 EventEmitter 객체를 생성
+  // 부모 컴포넌트는 searchEvent 이름으로 이벤트 바인딩 필요
+  @Output() searchEvent = new EventEmitter();
+
   keyword = 'Hello world!';
 
   constructor() { }
@@ -47,6 +52,13 @@ export class SearchBoxComponent implements OnInit {
   // 변경된 속성 (keyword)는 인터폴레이션 (interpolation)( {{}} )을 통해 view출력
   setKeyword(keyword: string): void {
     this.keyword = keyword;
+    // 자식 컴포넌트에서 Search 버튼을 눌렀을 때
+    // searchEvent에 대한 이벤트 발생
+    // 부모 컴포넌트에게 전달할 데이터를 인자로 넣어줌
+    this.searchEvent.emit({
+      keyword : `${this.keyword}`,
+      category: `${this._bookCategory.replace('category: ', '')}`
+    });
   }
 
 }
