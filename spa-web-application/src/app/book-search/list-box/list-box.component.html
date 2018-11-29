@@ -5,23 +5,25 @@
       <ng-container matColumnDef="bisbn">
         <!-- dataSource에 연결된 모든 row를 가져와 element라는 변수에 반복적으로 할당-->
         <!-- element.bisbn 값을 테이블에 출력-->
-        <mat-header-cell *matHeaderCellDef> ISBN </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.bisbn}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> BookCover </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <img class="table-bookCover" src="{{element.coverImgUrl}}"> </mat-cell>
+          <!-- {{element.coverImgUrl}} </mat-cell> -->
       </ng-container>
   
       <ng-container matColumnDef="btitle">
         <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.btitle}} </mat-cell>
+        <mat-cell *matCellDef="let element" class="table-title"> {{element.title}} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="bauthor">
         <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.bauthor}} </mat-cell>
+        <mat-cell *matCellDef="let element" class="table-author"> {{element.author}} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="bprice">
-        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.bprice}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Publisher </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="table-publisher"> {{element.publisher}} </mat-cell>
       </ng-container>
   
       <mat-header-row class="list-header-style" 

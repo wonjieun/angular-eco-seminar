@@ -21,3 +21,22 @@
 .list-header-style {
   background-color: beige;
 }
+
+.table-bookCover {
+  width: 100px;
+  height: 150px;
+  padding: 10px 0 10px 0;
+}
+
+.table-title {
+  font-size: 12px;
+  width:150px;
+}
+
+.table-author {
+  font-size: 12px;
+}
+
+.table-publisher {
+  font-size: 12px;
+}
