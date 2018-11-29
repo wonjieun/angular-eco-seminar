@@ -14,7 +14,15 @@ export class BookSearchMainComponent implements OnInit {
   // 이러한 접근 방법이 항상 좋은 것만은 아님
   // 컴포넌트의 재사용성과 유지보수성에 문제가 생길 가능성이 있음
   // 따라서, 이러한 직접적인 접근방식은 꼭 필요한 경우가 아니면 지양하도록
+
+  // @ViewChild 부모 컴포넌트 템플릿 안에 위치한 모든 자식 요소들을 ViewChild라고 함
+  // 이 ViewChild안에는 자식 컴포넌트 객체 뿐만 아니라 컴포넌트가 렌더링하는 View의 DOM,
+  // 그리고 디렉티브 (Directive) 포함
   @ViewChild(SearchBoxComponent) searchComp: SearchBoxComponent;
+  @ViewChild('resultStatus') resultToolbar: ElementRef;
+  // @ViewChildren 조건에 부합되는 객체를 모두 찾게 되고
+  // QueryList 형태로 객체들의 집합을 얻을 수 있음
+  // QueryList는 실제 배열이 아니기 때문에 toArray() 메소드를 이용해 배열을 얻어내 이용
   @ViewChildren(SearchBoxComponent) searchCompArr: QueryList<SearchBoxComponent>;
 
   displayCategoryName = null;
@@ -44,6 +52,7 @@ export class BookSearchMainComponent implements OnInit {
     this.searchTitle = `${searchInfo.keyword} ( ${searchInfo.category} )`;
   }
 
+  // 자신 (부모 컴포넌트)의 검색 관련 사항을 초기화, 자식 컴포넌트의 속성 (property)를 초기화
   clearCondition(): void {
     this.selectedValue = null;
     this.searchTitle = null;
@@ -55,5 +64,12 @@ export class BookSearchMainComponent implements OnInit {
     // @ViewChildren을 사용할 경우
     this.searchCompArr.toArray()[0]._bookCategory = null;
     this.searchCompArr.toArray()[0].keyword = null;
+  }
+
+  changeDOM(): void {
+    this.resultToolbar.nativeElement.onclick = function() {
+      alert('DOM을 직접 제어할 수 있어요!!');
+    };
+    this.resultToolbar.nativeElement.innerHTML = "클릭해보세요!!";
   }
 }

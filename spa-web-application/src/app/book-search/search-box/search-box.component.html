@@ -20,4 +20,7 @@
     <button mat-raised-button color="warn"
             (click)="setKeyword(inputKeyword.value)">Search</button>
             <!-- 버튼 클릭시 입력한 키워드 값을 가져와 컴포넌트의 메소드를 호출-->
+    <!-- Content Projection-->
+    <!-- 이 디렉티브 (directive)는 부모 컴포넌트 (book-search-main)가 전달해 준 템플릿으로 치환-->
+    <ng-content></ng-content>
 </div>
