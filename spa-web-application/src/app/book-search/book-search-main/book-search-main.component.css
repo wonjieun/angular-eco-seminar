@@ -5,6 +5,6 @@
     margin: 0 auto;
 }
 
-#inputState {
-    display: inline-block;
+.bookSearch-btn {
+    margin-left: 10px;
 }

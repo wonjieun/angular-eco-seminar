@@ -5,17 +5,6 @@ import { MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
 
 // interface를 이용하여 data type을 명확히 지정
-// interface IBook {
-//   bauthor: string;
-//   bdate: string;
-//   btranslator: string;
-//   bpublisher: string;
-//   btitle: string;
-//   bprice: number;
-//   bisbn: string;
-//   bimgurl: string;
-// }
-
 interface IBook {
   searchList: [];
   totalPage: number;
@@ -23,7 +12,6 @@ interface IBook {
   resultMessage: string;
   totalCount: number;
 }
-
 interface Books {
   isbn: string;
   title: string;
@@ -31,17 +19,6 @@ interface Books {
   publisher: string;
   coverImgUrl: string;
 }
-
-// interface IBook {
-//   bookKey: number;
-//   isbn: number;
-//   title: string;
-//   author: string;
-//   publisher: string;
-//   publishYear: number;
-//   coverImgUrl: string;
-// }
-
 @Component({
   selector: 'app-list-box',
   templateUrl: './list-box.component.html',
@@ -56,28 +33,32 @@ export class ListBoxComponent implements OnInit {
   // Paginator는 내부적으로 처리되기 때문에 사용하는 방법만 알면 충분
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  // book.json에 대한 HTTP연결로 JSON데이터를 가져옴
+  // Javascript에 의해서 초기화
+  // js가 constructor를 호출 = 쓸 수 있음 (2)
   constructor(private http: HttpClient) {
-    // 실제 데이터를 호출해보자 (11/23 세미나)
+    console.log("1생성자");
+    // book.json에 대한 HTTP연결로 JSON데이터를 가져옴
     this.http.get<IBook>('http://14.63.223.63:8082/common/test/book/list.do')
     // this.http.get<IBook[]>('assets/data/book.json')
       .subscribe(res => {
-        console.log('>>>' + JSON.stringify(res.searchList));
         this.books = res.searchList;
-        console.log('this.books >>> ' + JSON.stringify(this.books));
+        console.log("6생성자 http get books>> " + this.books);
         // HttpClient의 get() method로 가져온 후 이를 객체화
         // dataSource: 도서정보에 대한 객체배열을 이용하여 만든 MatTableDataSource class객체
         //             = JSON 데이터를 가져와 만든 객체
         // dataSource와 연결시키기 위해 아래 코드처럼 객체를 생성해서 연결
         this.dataSource = new MatTableDataSource<Books>(this.books);
         this.dataSource.paginator = this.paginator;
-      },
-      err => {
-        console.log('Error occured.');
       });
+    console.log("2http get>> " + this.books);
   }
 
+  // Angular에 의해서 초기화
+  // 컴포넌트를 초기화하여 렌더링 후 (1)
   ngOnInit() {
+    console.log("3언제?");
+    console.log("4books>> " + this.books);
+    console.log("5displayedColumns>> " + this.displayedColumns);
   }
 
 }

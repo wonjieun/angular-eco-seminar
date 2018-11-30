@@ -18,15 +18,17 @@
             </mat-option>
         </mat-select>
         </mat-form-field>
-        <button mat-raised-button color="primary"
+
+        <button mat-raised-button color="primary" class="bookSearch-btn"
             (click)="clearCondition()">검색 초기화</button>
-        <button mat-raised-button color="primary"
+        <button mat-raised-button color="primary" class="bookSearch-btn"
             (click)="changeDOM()">DOM 직접 변경</button>
     </div>
 
     <div>
         <!-- bookCategory라는 이름을 displayCategoryName 속성을 바인딩-->
         <app-search-box [bookCategory]="displayCategoryName"
+                        [selectedValue]="selectedValue"
                         (searchEvent)="changeTitleBar($event)">
                         <!-- 이벤트 바인딩을 이용한 searchEvent 이벤트 발생-->
             <p>Content Projection!</p>

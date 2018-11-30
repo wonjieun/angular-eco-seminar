@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 
 @Component({
@@ -19,6 +19,8 @@ export class BookSearchMainComponent implements OnInit {
   // 이 ViewChild안에는 자식 컴포넌트 객체 뿐만 아니라 컴포넌트가 렌더링하는 View의 DOM,
   // 그리고 디렉티브 (Directive) 포함
   @ViewChild(SearchBoxComponent) searchComp: SearchBoxComponent;
+  // resultStatus 템플릿 참조 변수를 이용해서 해당 엘리먼트 참조 (element reference)를 획득
+  // ElementRef 타입의 객체를 획득하면 nativeElement 속성으로 직접 제어 가능
   @ViewChild('resultStatus') resultToolbar: ElementRef;
   // @ViewChildren 조건에 부합되는 객체를 모두 찾게 되고
   // QueryList 형태로 객체들의 집합을 얻을 수 있음
@@ -70,6 +72,6 @@ export class BookSearchMainComponent implements OnInit {
     this.resultToolbar.nativeElement.onclick = function() {
       alert('DOM을 직접 제어할 수 있어요!!');
     };
-    this.resultToolbar.nativeElement.innerHTML = "클릭해보세요!!";
+    this.resultToolbar.nativeElement.innerHTML = '클릭해보세요!!';
   }
 }

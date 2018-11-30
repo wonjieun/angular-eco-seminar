@@ -1,13 +1,37 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Optional } from '@angular/core';
+import { HttpSupportService } from '../http-support.service';
+import { JsonConfig, JSON_DATA_CONFIG } from '../json-config';
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.css']
+  styleUrls: ['./search-box.component.css'],
+  // Angular에게 어떤 클래스가 주입 되는지 알림
+  /** Providers
+   * 모듈안에 providers로 등록한 의존객체는 모듈안에서 사용 가능
+   * 컴포넌트안에 providers로 등록한 의존객체는 자신과 자식 컴포넌트에서 사용 가능
+   * 모듈에 등록하는 경우, 의존객체는 하나의 객체가 생성되어 사용. 즉, 싱글톤 형태로 사용
+   * 반면 컴포넌트에 등록된 의존객체는 해당 컴포넌트가 생성될 때마다 따로 생성
+   * 따라서, 정보공유를 목적으로 하는 Service Mediator Pattern을 이용할 경우
+   * 일반적으로 모듈에 의존객체를 등록하여 사용
+   * providers: [
+   *    {
+   *        provide: HttpSupportService,    // 데이터 타입
+   *        useClass: HttpSupportService    // 실제 객체를 생성하기 위해 필요한 클래스명
+   *    }
+   * ]
+  */
+  providers: [
+      HttpSupportService,
+      {
+          provide: JsonConfig,
+          useValue: JSON_DATA_CONFIG
+      }
+  ]
 })
 export class SearchBoxComponent implements OnInit {
 
-  // Input decorator
+  // @Input decorator
   // 부모 컴포넌트: book-search-main
   // 부모 컴포넌트 -> 자식 컴포넌트 데이터 전달할 때의 방식 call-by-reference
   // call-by-reference ? call-by-value ?
@@ -22,10 +46,12 @@ export class SearchBoxComponent implements OnInit {
   // 부모 컴포넌트가 전달해준 데이터를 가공해서 자식 컴포넌트에서 사용하기
   _bookCategory: string;
 
+  @Input('selectedValue') selectedValue: string;
+
   @Input()
   set bookCategory(value: string) {
     if (value != null) {
-      // 추가적인 작업이 들어올 수 있습니다.
+      // 추가적인 작업 가능
       this._bookCategory = 'category: ' + value;
     } else {
       this._bookCategory = value;
@@ -39,7 +65,9 @@ export class SearchBoxComponent implements OnInit {
 
   keyword = 'Hello world!';
 
-  constructor() { }
+  // 생성자 (constructor)를 이용한 Service 주입 (Injection)
+  constructor(private httpSupportService: HttpSupportService,
+                @Optional() private jsonConfig: JsonConfig) { }
 
   ngOnInit() {
   }
@@ -57,8 +85,18 @@ export class SearchBoxComponent implements OnInit {
     // 부모 컴포넌트에게 전달할 데이터를 인자로 넣어줌
     this.searchEvent.emit({
       keyword : `${this.keyword}`,
-      category: `${this._bookCategory.replace('category: ', '')}`
+      category: ``
+      //`${this._bookCategory.replace('category: ', '')}`
     });
+
+    // 주입 받은 Service의 메소드를 호출
+    // 부모 컴포넌트로부터 받은 도서종류와 사용자로부터 입력받은 검색키워드
+    this.httpSupportService.getJsonData(
+        this.jsonConfig.url,
+        this.jsonConfig.name,
+        // this.selectedValue,
+        // this.keyword
+        );
   }
 
 }
