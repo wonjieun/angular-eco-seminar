@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { SearchBoxComponent } from '../search-box/search-box.component';
 
 @Component({
@@ -70,6 +70,6 @@ export class BookSearchMainComponent implements OnInit {
     this.resultToolbar.nativeElement.onclick = function() {
       alert('DOM을 직접 제어할 수 있어요!!');
     };
-    this.resultToolbar.nativeElement.innerHTML = "클릭해보세요!!";
+    this.resultToolbar.nativeElement.innerHTML = '클릭해보세요!!';
   }
 }

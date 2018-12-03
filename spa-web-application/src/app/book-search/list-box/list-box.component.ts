@@ -3,19 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
+import { HttpSupportService } from '../http-support.service';
 
 // interface를 이용하여 data type을 명확히 지정
-// interface IBook {
-//   bauthor: string;
-//   bdate: string;
-//   btranslator: string;
-//   bpublisher: string;
-//   btitle: string;
-//   bprice: number;
-//   bisbn: string;
-//   bimgurl: string;
-// }
-
 interface IBook {
   searchList: [];
   totalPage: number;
@@ -32,16 +22,6 @@ interface Books {
   coverImgUrl: string;
 }
 
-// interface IBook {
-//   bookKey: number;
-//   isbn: number;
-//   title: string;
-//   author: string;
-//   publisher: string;
-//   publishYear: number;
-//   coverImgUrl: string;
-// }
-
 @Component({
   selector: 'app-list-box',
   templateUrl: './list-box.component.html',
@@ -57,24 +37,12 @@ export class ListBoxComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // book.json에 대한 HTTP연결로 JSON데이터를 가져옴
-  constructor(private http: HttpClient) {
-    // 실제 데이터를 호출해보자 (11/23 세미나)
-    this.http.get<IBook>('http://14.63.223.63:8082/common/test/book/list.do')
-    // this.http.get<IBook[]>('assets/data/book.json')
-      .subscribe(res => {
-        console.log('>>>' + JSON.stringify(res.searchList));
-        this.books = res.searchList;
-        console.log('this.books >>> ' + JSON.stringify(this.books));
-        // HttpClient의 get() method로 가져온 후 이를 객체화
-        // dataSource: 도서정보에 대한 객체배열을 이용하여 만든 MatTableDataSource class객체
-        //             = JSON 데이터를 가져와 만든 객체
-        // dataSource와 연결시키기 위해 아래 코드처럼 객체를 생성해서 연결
-        this.dataSource = new MatTableDataSource<Books>(this.books);
-        this.dataSource.paginator = this.paginator;
-      },
-      err => {
-        console.log('Error occured.');
-      });
+  constructor(private httpSupportService: HttpSupportService) { }
+
+  getData(): void {
+    this.books = this.httpSupportService.getBooks();
+    this.dataSource = new MatTableDataSource<Books>(this.books);
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit() {

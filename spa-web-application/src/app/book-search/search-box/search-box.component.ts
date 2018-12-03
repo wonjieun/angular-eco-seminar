@@ -1,9 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Optional } from '@angular/core';
+import { HttpSupportService } from '../http-support.service';
+import { JSON_DATA_CONFIG, JsonConfig } from './json-config';
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.css']
+  styleUrls: ['./search-box.component.css'],
+  providers: [
+    HttpSupportService,
+    {
+      provide: JsonConfig,
+      useValue: JSON_DATA_CONFIG
+    }
+  ]
 })
 export class SearchBoxComponent implements OnInit {
 
@@ -32,6 +41,8 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
+  @Input('selectedValue') selectedValue: string;
+
   // @Output decorator
   // 부모 컴포넌트에게 이벤트를 전달하기 위해 EventEmitter 객체를 생성
   // 부모 컴포넌트는 searchEvent 이름으로 이벤트 바인딩 필요
@@ -39,7 +50,8 @@ export class SearchBoxComponent implements OnInit {
 
   keyword = 'Hello world!';
 
-  constructor() { }
+  constructor(private httpSupportService: HttpSupportService,
+              @Optional() private jsonConfig: JsonConfig) { }
 
   ngOnInit() {
   }
@@ -56,9 +68,18 @@ export class SearchBoxComponent implements OnInit {
     // searchEvent에 대한 이벤트 발생
     // 부모 컴포넌트에게 전달할 데이터를 인자로 넣어줌
     this.searchEvent.emit({
-      keyword : `${this.keyword}`,
-      category: `${this._bookCategory.replace('category: ', '')}`
+      keyword : `${this.keyword}`
+      // FIXME: Error
+      // category: `${this._bookCategory.replace('category: ', '')}`
     });
+
+    // 부모 컴포넌트로부터 받은 도서종류 (selectedValue)와 사용자로부터 입력받은
+    // 검색 키워드 (keyword)를 가지고 주입된 Service의 메소드를 호출
+    this.httpSupportService.getJsonData(
+      this.jsonConfig.url,
+      this.jsonConfig.name,
+      this.selectedValue,
+      this.keyword);
   }
 
 }
