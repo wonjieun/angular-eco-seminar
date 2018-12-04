@@ -1,11 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter, Optional } from '@angular/core';
 import { HttpSupportService } from '../http-support.service';
+<<<<<<< HEAD
 import { JsonConfig, JSON_DATA_CONFIG } from '../json-config';
+=======
+import { JSON_DATA_CONFIG, JsonConfig } from './json-config';
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.css'],
+<<<<<<< HEAD
   // Angular에게 어떤 클래스가 주입 되는지 알림
   /** Providers
    * 모듈안에 providers로 등록한 의존객체는 모듈안에서 사용 가능
@@ -27,6 +32,14 @@ import { JsonConfig, JSON_DATA_CONFIG } from '../json-config';
           provide: JsonConfig,
           useValue: JSON_DATA_CONFIG
       }
+=======
+  providers: [
+    HttpSupportService,
+    {
+      provide: JsonConfig,
+      useValue: JSON_DATA_CONFIG
+    }
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
   ]
 })
 export class SearchBoxComponent implements OnInit {
@@ -58,6 +71,8 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
+  @Input('selectedValue') selectedValue: string;
+
   // @Output decorator
   // 부모 컴포넌트에게 이벤트를 전달하기 위해 EventEmitter 객체를 생성
   // 부모 컴포넌트는 searchEvent 이름으로 이벤트 바인딩 필요
@@ -65,9 +80,14 @@ export class SearchBoxComponent implements OnInit {
 
   keyword = 'Hello world!';
 
+<<<<<<< HEAD
   // 생성자 (constructor)를 이용한 Service 주입 (Injection)
   constructor(private httpSupportService: HttpSupportService,
                 @Optional() private jsonConfig: JsonConfig) { }
+=======
+  constructor(private httpSupportService: HttpSupportService,
+              @Optional() private jsonConfig: JsonConfig) { }
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
 
   ngOnInit() {
   }
@@ -84,6 +104,7 @@ export class SearchBoxComponent implements OnInit {
     // searchEvent에 대한 이벤트 발생
     // 부모 컴포넌트에게 전달할 데이터를 인자로 넣어줌
     this.searchEvent.emit({
+<<<<<<< HEAD
       keyword : `${this.keyword}`,
       category: ``
       //`${this._bookCategory.replace('category: ', '')}`
@@ -97,6 +118,20 @@ export class SearchBoxComponent implements OnInit {
         // this.selectedValue,
         // this.keyword
         );
+=======
+      keyword : `${this.keyword}`
+      // FIXME: Error
+      // category: `${this._bookCategory.replace('category: ', '')}`
+    });
+
+    // 부모 컴포넌트로부터 받은 도서종류 (selectedValue)와 사용자로부터 입력받은
+    // 검색 키워드 (keyword)를 가지고 주입된 Service의 메소드를 호출
+    this.httpSupportService.getJsonData(
+      this.jsonConfig.url,
+      this.jsonConfig.name,
+      this.selectedValue,
+      this.keyword);
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
   }
 
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
+import { HttpSupportService } from '../http-support.service';
 
 // interface를 이용하여 data type을 명확히 지정
 interface IBook {
@@ -19,6 +20,10 @@ interface Books {
   publisher: string;
   coverImgUrl: string;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
 @Component({
   selector: 'app-list-box',
   templateUrl: './list-box.component.html',
@@ -33,6 +38,7 @@ export class ListBoxComponent implements OnInit {
   // Paginator는 내부적으로 처리되기 때문에 사용하는 방법만 알면 충분
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+<<<<<<< HEAD
   // Javascript에 의해서 초기화
   // js가 constructor를 호출 = 쓸 수 있음 (2)
   constructor(private http: HttpClient) {
@@ -51,6 +57,15 @@ export class ListBoxComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       });
     console.log("2http get>> " + this.books);
+=======
+  // book.json에 대한 HTTP연결로 JSON데이터를 가져옴
+  constructor(private httpSupportService: HttpSupportService) { }
+
+  getData(): void {
+    this.books = this.httpSupportService.getBooks();
+    this.dataSource = new MatTableDataSource<Books>(this.books);
+    this.dataSource.paginator = this.paginator;
+>>>>>>> fe8c142ceaa083a9300c14eb90fed0d4ccab4e34
   }
 
   // Angular에 의해서 초기화

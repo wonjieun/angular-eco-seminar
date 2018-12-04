@@ -1,3 +1,7 @@
+<br>
+<button mat-raised-button color="warn"
+        (click)="getData()">Get DATA!</button>
+
 <div class="example-container mat-elevation-z8">
     <!-- dataSource 데이터 바인딩-->
     <mat-table class="list-table-style" #table [dataSource]="dataSource">
@@ -7,23 +11,23 @@
         <!-- element.bisbn 값을 테이블에 출력-->
         <mat-header-cell *matHeaderCellDef> BookCover </mat-header-cell>
         <mat-cell *matCellDef="let element">
-            <img class="table-bookCover" src="{{element.coverImgUrl}}"> </mat-cell>
+            <img class="table-bookCover" src="{{ element.coverImgUrl }}"> </mat-cell>
           <!-- {{element.coverImgUrl}} </mat-cell> -->
       </ng-container>
   
       <ng-container matColumnDef="btitle">
         <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="table-title"> {{element.title}} </mat-cell>
+        <mat-cell *matCellDef="let element" class="table-title"> {{ element.title }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="bauthor">
         <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="table-author"> {{element.author}} </mat-cell>
+        <mat-cell *matCellDef="let element" class="table-author"> {{ element.author }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="bprice">
         <mat-header-cell *matHeaderCellDef> Publisher </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="table-publisher"> {{element.publisher}} </mat-cell>
+        <mat-cell *matCellDef="let element" class="table-publisher"> {{ element.publisher }} </mat-cell>
       </ng-container>
   
       <mat-header-row class="list-header-style" 
