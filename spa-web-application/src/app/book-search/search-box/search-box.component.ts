@@ -72,6 +72,7 @@ export class SearchBoxComponent implements OnInit {
     private httpSupportService: HttpSupportService,
     @Optional() private jsonConfig: JsonConfig
   ) {}
+
   ngOnInit() {
     console.log("ngOnInit");
   }

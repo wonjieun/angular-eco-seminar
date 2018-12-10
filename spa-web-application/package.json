@@ -48,5 +48,12 @@
     "tslint": "~5.11.0",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "~3.1.1"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "useTabs": false,
+    "tabWidth": 2,
+    "bracketSpacing": true,
+    "singleQuote": true
   }
 }
